@@ -83,11 +83,13 @@ def transaction_details(request, pk):
 
 @api_view(["POST"])
 def withdraw_action(request, pk):
+    try:
+        sourceAccount = Account.objects.get(pk=pk)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    sourceAccount = Account.objects.get(pk=pk)
     serializer = AccountTransactionSerializer(data=request.data)
     serializer.initial_data['sourceAccount'] = sourceAccount
-
     if serializer.is_valid():
         destinationAccount = Account.objects.get(pk=serializer.data['destinationAccount'])
 
