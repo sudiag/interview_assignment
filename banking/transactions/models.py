@@ -9,7 +9,7 @@ class Account(models.Model):
 
 class Transaction(models.Model):
     registeredTime = models.DateTimeField(auto_now_add=True)
-    executedTime = models.DateTimeField(null=True)
+    executedTime = models.DateTimeField(auto_now=True)
     success = models.BooleanField(null=True)
     cashAmount = models.DecimalField(max_digits=12, decimal_places=2) #change! inaccurate!
     sourceAccount = models.ForeignKey("Account", related_name="withdrawals", on_delete=models.RESTRICT)
